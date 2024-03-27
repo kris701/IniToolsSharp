@@ -46,6 +46,12 @@ namespace IniToolsSharp.Tests
                 $"Value2=6434521{Environment.NewLine}",
                 typeof(IniDocument2)
             };
+            yield return new object[] {
+                new IniDocument3(),
+                $"[SectionName]{Environment.NewLine}" +
+                $"Values=[1,5,1341]{Environment.NewLine}",
+                typeof(IniDocument3)
+            };
         }
 
         [TestMethod]

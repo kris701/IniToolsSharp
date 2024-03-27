@@ -44,3 +44,32 @@ Value1=False
 Value2=-1
 ```
 The same text can be deserialised back into the `SomeSettings` object.
+
+## Example
+You can also use simple list types as follows:
+```csharp
+public class Section1
+{
+    public List<int> Values { get; set; } = new List<int>()
+    {
+        5,
+        123,
+        -1
+    }
+}
+public class SomeSettings
+{
+    [IniSection("SectionName")]
+    public Section1 Section { get; set; } = new Section1();
+}
+```
+You can then serialise it into a INI file format:
+```csharp
+var text = IniSerialiser.Serialise(new SomeSettings());
+```
+This will output text as follows:
+```ini
+[SectionName]
+Values=[5,123,-1]
+```
+The same text can be deserialised back into the `SomeSettings` object.
