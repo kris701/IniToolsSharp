@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace IniToolsSharp
+﻿namespace IniToolsSharp
 {
     /// <summary>
     /// Attribute that describes a section in a INI file

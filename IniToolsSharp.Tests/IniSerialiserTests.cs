@@ -11,8 +11,7 @@ namespace IniToolsSharp.Tests
                 new IniDocument1(),
                 $"[SectionName]{Environment.NewLine}" +
                 $"Value1=False{Environment.NewLine}" +
-                $"Value2=-1{Environment.NewLine}",
-                typeof(IniDocument1)
+                $"Value2=-1{Environment.NewLine}"
             };
             yield return new object[] {
                 new IniDocument1()
@@ -25,8 +24,7 @@ namespace IniToolsSharp.Tests
                 },
                 $"[SectionName]{Environment.NewLine}" +
                 $"Value1=True{Environment.NewLine}" +
-                $"Value2=6434521{Environment.NewLine}",
-                typeof(IniDocument1)
+                $"Value2=6434521{Environment.NewLine}"
             };
             yield return new object[] {
                 new IniDocument2()
@@ -43,20 +41,18 @@ namespace IniToolsSharp.Tests
                 $"Value2=-1{Environment.NewLine}" +
                 $"[SectionName2]{Environment.NewLine}" +
                 $"Value1=True{Environment.NewLine}" +
-                $"Value2=6434521{Environment.NewLine}",
-                typeof(IniDocument2)
+                $"Value2=6434521{Environment.NewLine}"
             };
             yield return new object[] {
                 new IniDocument3(),
                 $"[SectionName]{Environment.NewLine}" +
-                $"Values=[1,5,1341]{Environment.NewLine}",
-                typeof(IniDocument3)
+                $"Values=[1,5,1341]{Environment.NewLine}"
             };
         }
 
         [TestMethod]
         [DynamicData(nameof(NormalData), DynamicDataSourceType.Method)]
-        public void Can_Serialise_1(dynamic deserialised, string serialised, Type type)
+        public void Can_Serialise_1(dynamic deserialised, string serialised)
         {
             // ARRANGE
             // ACT
@@ -68,9 +64,11 @@ namespace IniToolsSharp.Tests
 
         [TestMethod]
         [DynamicData(nameof(NormalData), DynamicDataSourceType.Method)]
-        public void Can_Serialise_2(dynamic deserialised, string serialised, Type type)
+        public void Can_Serialise_2(dynamic deserialised, string serialised)
         {
             // ARRANGE
+            var type = deserialised.GetType();
+
             // ACT
             var text = IniSerialiser.Serialise(deserialised, type);
 
@@ -80,9 +78,11 @@ namespace IniToolsSharp.Tests
 
         [TestMethod]
         [DynamicData(nameof(NormalData), DynamicDataSourceType.Method)]
-        public void Can_Deserialise(dynamic deserialised, string serialised, Type type)
+        public void Can_Deserialise(dynamic deserialised, string serialised)
         {
             // ARRANGE
+            var type = deserialised.GetType();
+
             // ACT
             var result = IniSerialiser.Deserialise(serialised, type);
 
@@ -93,9 +93,11 @@ namespace IniToolsSharp.Tests
 
         [TestMethod]
         [DynamicData(nameof(NormalData), DynamicDataSourceType.Method)]
-        public void Can_Deserialise_BackAndForth(dynamic deserialised, string serialised, Type type)
+        public void Can_Deserialise_BackAndForth(dynamic deserialised, string serialised)
         {
             // ARRANGE
+            var type = deserialised.GetType();
+
             // ACT
             var des = IniSerialiser.Deserialise(serialised, type);
             var ser = IniSerialiser.Serialise(des, type);

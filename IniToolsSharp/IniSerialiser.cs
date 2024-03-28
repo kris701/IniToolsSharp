@@ -1,9 +1,7 @@
 ﻿using IniToolsSharp.Exceptions;
 using System.Collections;
-using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using System.Text;
-using static System.Collections.Specialized.BitVector32;
 
 namespace IniToolsSharp
 {
@@ -39,7 +37,7 @@ namespace IniToolsSharp
             var sb = new StringBuilder();
             sb.AppendLine($"[{sectionName}]");
             var props = item.GetType().GetProperties();
-            foreach(var prop in props)
+            foreach (var prop in props)
             {
                 if (prop.GetCustomAttribute<IniIgnoreAttribute>() != null)
                     continue;
@@ -82,12 +80,12 @@ namespace IniToolsSharp
         /// <exception cref="IniDeserialisationException"></exception>
         public static dynamic Deserialise(string text, Type type)
         {
-            text = text.Replace("\r","");
+            text = text.Replace("\r", "");
             var returnItem = Activator.CreateInstance(type);
             if (returnItem == null)
                 throw new IniDeserialisationException($"Could not create a default instance of the type '{type.Name}'");
             var sections = GetSectionProperties(type);
-            foreach(var section in sections)
+            foreach (var section in sections)
             {
                 var attr = section.GetCustomAttribute<IniSectionAttribute>();
                 if (attr != null)
@@ -105,7 +103,7 @@ namespace IniToolsSharp
                     sectionText = sectionText.Remove(0, targetSection.Length);
                     var split = sectionText.Split('\n').ToList();
                     split.RemoveAll(x => x == "");
-                    foreach(var line in split)
+                    foreach (var line in split)
                     {
                         var equals = line.Split('=');
                         var left = equals[0].Trim();
